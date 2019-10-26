@@ -5,18 +5,18 @@ import sounds from "./sounds";
 
 const initialState = {
   0: {
-    sound: sounds.sound01
+    sound: sounds[0]
   },
   1: {
-    sound: sounds.sound02
+    sound: sounds[1]
   },
   2: {
-    sound: sounds.sound03
+    sound: sounds[2]
   },
   3: {
-    sound: sounds.sound04
+    sound: sounds[3]
   },
-  playList: [sounds["sound0" + Math.floor(Math.random() * 4 + 1)]],
+  playList: [sounds[Math.floor(Math.random() * 4 )]],
   userPlayList: [],
   start: false,
   reset: false,
@@ -99,29 +99,33 @@ function App() {
       <div
         className="green"
         onClick={() => {
-          playSound(sounds.sound01);
-          addUserPlayList(sounds.sound01);
+          const sound = state[0].sound
+          playSound(sound);
+          addUserPlayList(sound);
         }}
       ></div>
       <div
         className="red"
         onClick={() => {
-          playSound(sounds.sound02);
-          addUserPlayList(sounds.sound02);
+          const sound = state[1].sound
+          playSound(sound);
+          addUserPlayList(sound);
         }}
       ></div>
       <div
         className="yellow"
         onClick={() => {
-          playSound(sounds.sound03);
-          addUserPlayList(sounds.sound03);
+          const sound = state[2].sound
+          playSound(sound);
+          addUserPlayList(sound);
         }}
       ></div>
       <div
         className="blue"
         onClick={() => {
-          playSound(sounds.sound04);
-          addUserPlayList(sounds.sound04);
+          const sound = state[3].sound
+          playSound(sound);
+          addUserPlayList(sound);
         }}
       ></div>
 
