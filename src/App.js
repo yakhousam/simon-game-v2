@@ -1,22 +1,10 @@
-import React, { useReducer, useRef} from "react";
+import React, { useReducer, useRef } from "react";
 import "./App.css";
 // import Control from "./components/Control/Control";
 import sounds from "./sounds";
 
 const initialState = {
-  0: {
-    sound: sounds[0]
-  },
-  1: {
-    sound: sounds[1]
-  },
-  2: {
-    sound: sounds[2]
-  },
-  3: {
-    sound: sounds[3]
-  },
-  playList: [sounds[Math.floor(Math.random() * 4 )]],
+  playList: [sounds[Math.floor(Math.random() * 4)]],
   userPlayList: [],
   start: false,
   reset: false,
@@ -24,6 +12,7 @@ const initialState = {
 };
 
 const reducer = (state, action) => {
+  console.log("dispatch =", action.type)
   switch (action.type) {
     case "PLAY_SOUND":
       return { ...state, sound: action.sound };
@@ -31,7 +20,7 @@ const reducer = (state, action) => {
       return { ...state, playList: [...state.playList, action.sound] };
     case "ADD_USER_PLAYLIST":
       return { ...state, userPlayList: [...state.userPlayList, action.sound] };
-    case "SET_SOUND":
+    case "REST_SOUND_FILE":
       return { ...state, sound: action.sound };
     case "IS_PLAYING":
       return { ...state, isPlaying: true };
@@ -40,7 +29,7 @@ const reducer = (state, action) => {
     case "START":
       return { ...state, start: !state.start };
     case "RESET":
-      return { ...initialState };
+      return { ...initialState,  playList: [sounds[Math.floor(Math.random() * 4)]] };
 
     default:
       return state;
@@ -56,6 +45,7 @@ function App() {
       type: "PLAY_SOUND",
       sound
     });
+    dispatch({ type: "IS_PLAYING" });
     if (state.sound === sound) {
       audio.current.currentTime = 0;
       audio.current.play();
@@ -68,22 +58,15 @@ function App() {
     });
   };
 
-  const playSequence = () => {
+  const playPlayList = () => {
     setTimeout(() => {
       state.playList.forEach((sound, i) => {
         setTimeout(() => {
-          dispatch({
-            type: "PLAY_SOUND",
-            sound
-          });
-          if (state.sound === sound) {
-            audio.current.currentTime = 0;
-          }
-          audio.current.play();
+        playSound(sound)
         }, 1000 * (i + 1));
       });
     }, 1000);
-  }
+  };
 
   const addPlayList = sound => {
     dispatch({
@@ -91,41 +74,48 @@ function App() {
       sound: state[sound].sound
     });
   };
+  
+const checkList = () => {
+  
+}
 
-  console.log("state playlist =", state.playList);
-  console.log("sound =", state.sound);
+  
+
+  // console.log("state playlist =", state.playList);
+  // console.log("sound =", state.sound);
   return (
     <div className="grid">
       <div
         className="green"
+        style={sounds[0] === state.sound ? { background: "lime" } : {}}
         onClick={() => {
-          const sound = state[0].sound
-          playSound(sound);
-          addUserPlayList(sound);
+          playSound(sounds[0]);
+          addUserPlayList(sounds[0]);
+          checkList()
         }}
       ></div>
       <div
         className="red"
+        style={sounds[1] === state.sound ? { background: "orange" } : {}}
         onClick={() => {
-          const sound = state[1].sound
-          playSound(sound);
-          addUserPlayList(sound);
+          playSound(sounds[1]);
+          addUserPlayList(sounds[1]);
         }}
       ></div>
       <div
         className="yellow"
+        style={sounds[2] === state.sound ? { background: "yellow" } : {}}
         onClick={() => {
-          const sound = state[2].sound
-          playSound(sound);
-          addUserPlayList(sound);
+          playSound(sounds[2]);
+          addUserPlayList(sounds[2]);
         }}
       ></div>
       <div
         className="blue"
+        style={sounds[3] === state.sound ? { background: "skyblue" } : {}}
         onClick={() => {
-          const sound = state[3].sound
-          playSound(sound);
-          addUserPlayList(sound);
+          playSound(sounds[3]);
+          addUserPlayList(sounds[3]);
         }}
       ></div>
 
@@ -137,15 +127,15 @@ function App() {
         <div className="btn-wrap">
           <div
             className="btn"
-            style={!state.start ? {background: 'red'}: {}}
+            style={!state.start ? { background: "red" } : {}}
             onClick={() => {
               if (!state.start) {
                 dispatch({
                   type: "START"
                 });
-                playSequence();
-                const sound = Math.floor(Math.random() * 4);
-                addPlayList(sound);
+                playPlayList();
+                // const sound = Math.floor(Math.random() * 4);
+                // addPlayList(sound);
               } else {
                 dispatch({ type: "RESET" });
               }
@@ -161,7 +151,17 @@ function App() {
       <div className="sp-vertical"></div>
       <div className="sp-horizontal"></div>
 
-      <audio src={state.sound} ref={audio} autoPlay ></audio>
+      <audio src={state.sound} ref={audio} autoPlay onEnded={() => {
+        // console.log('audio ended')
+        dispatch({
+          type: "REST_SOUND_FILE",
+          sound:undefined
+        })
+        dispatch({
+          type: "IS_NOT_PLAYING"
+        })
+      }
+      } ></audio>
     </div>
   );
 }
