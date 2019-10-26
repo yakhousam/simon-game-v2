@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useReducer } from "react";
+import "./App.css";
+import Control from "./components/Control/Control";
+
+const initialState = {
+  
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "BTN_CLICKED":
+    // return {...state, [action.id]:{...state[action.id], className: "red" }}>
+
+    default:
+      return state;
+  }
+};
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="grid">
+      <div className='green'></div>
+      <div className='red'></div>
+      <div className='yellow'></div>
+      <div className='blue'></div>
+      <Control />
+      <div className="sp-vertical"></div>
+      <div className="sp-horizontal"></div>
     </div>
   );
 }

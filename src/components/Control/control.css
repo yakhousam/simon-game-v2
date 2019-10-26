@@ -1,0 +1,61 @@
+.control {
+  background: black;
+  grid-column: 2 / 4;
+  grid-row: 2 / 4;
+  border-radius: 50%;
+  /* border: 1vmin groove white; */
+  color: white;
+  z-index: 2;
+  box-shadow: inset 0 0 5vmin white;
+  /* background: radial-gradient( gray, black); */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding:  10% 5% 20%
+}
+.title{
+  margin: 0;
+  text-align: center;
+  font-size: 5vmin;
+  letter-spacing: .2em;
+}
+*::selection{
+  background-color: transparent;
+}
+.monitor{
+  width: 70%;
+  height: 30%;
+  background-color: black;
+  /* border: gray inset 1vmin; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 5vmin white;
+  border-radius: 4vmin
+}
+.monitor span{
+  font-size: 3vmin;
+}
+.btn-wrap{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.btn{
+  width: 5vmin;
+  height: 5vmin;
+  border-radius: 50%;
+  background-color: green;
+  box-shadow: inset 0 0 1vmin yellow;
+  /* border: orange 1vmin outset; */
+  box-sizing: border-box;
+  font-size: 2.5vmin;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn:active{
+  background-color: green;
+  transform: scale(0.9)
+}

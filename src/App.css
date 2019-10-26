@@ -1,22 +1,88 @@
-.App {
-  text-align: center;
+.grid {
+  width: 95vmin;
+  height: 95vmin;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  background: black;
+  border-radius: 50%;
+  box-sizing: border-box;
+  padding: 5vmin;
+  box-shadow: inset 0 0 5vmin white;
+}
+.sp-vertical {
+  background-color: black;
+  width: 5vmin;
+  height: 100%;
+  grid-column: 1 / 6;
+  grid-row: 1 / 6;
+  justify-self: center;
+  z-index: 1;
+  box-shadow: inset 0 0 3vmin white;
+}
+.sp-horizontal {
+  background-color: black;
+  width: 100%;
+  height: 5vmin;
+  grid-column: 1 / 6;
+  grid-row: 1 / 6;
+  align-self: center;
+  z-index: 1;
+  box-shadow: inset 0 0 3vmin white;
 }
 
-.App-logo {
-  height: 40vmin;
+/* buttons */
+
+.green {
+  background-color: green;
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+  border-top-left-radius: 100%;
+  box-shadow: inset -3vmin -3vmin 5vmin 3vmin greenyellow,
+    inset 3vmin 3vmin 5vmin greenyellow;
+  /* background-image: radial-gradient(40vmin at bottom right, greenyellow, green) */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.red {
+  background-color: red;
+  grid-column: 3 / 5;
+  grid-row: 1 / 3;
+  border-top-right-radius: 100%;
+  box-shadow: inset 3vmin -3vmin 5vmin 3vmin orange,
+    inset -3vmin 3vmin 5vmin orange;
 }
 
-.App-link {
-  color: #09d3ac;
+.yellow {
+  background-color: goldenrod;
+  grid-column: 1 / 3;
+  grid-row: 3 / 5;
+  border-bottom-left-radius: 100%;
+  box-shadow: inset -3vmin 3vmin 5vmin 3vmin yellow,
+    inset 3vmin -3vmin 5vmin yellow;
+}
+.blue {
+  background-color: blue;
+  grid-column: 3 / 5;
+  grid-row: 3 / 5;
+  border-bottom-right-radius: 100%;
+  box-shadow: inset 3vmin 3vmin 5vmin 3vmin skyblue,
+    inset -3vmin -3vmin 5vmin skyblue;
+}
+
+.green:active {
+  background-color: lime;
+  transform: scale(0.99);
+}
+.red:active {
+  background-color: orange;
+  transform: scale(0.99);
+}
+.yellow:active {
+  background-color: yellow;
+  transform: scale(0.99);
+}
+.blue:active {
+  background-color: skyblue;
+  transform: scale(0.99);
 }
