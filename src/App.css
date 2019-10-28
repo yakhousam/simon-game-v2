@@ -70,19 +70,19 @@
     inset -3vmin -3vmin 5vmin skyblue;
 }
 
-.green:active {
+.green-clicked {
   background-color: lime;
   transform: scale(0.99);
 }
-.red:active {
+.red-clicked {
   background-color: orange;
   transform: scale(0.99);
 }
-.yellow:active {
+.yellow-clicked {
   background-color: yellow;
   transform: scale(0.99);
 }
-.blue:active {
+.blue-clicked {
   background-color: skyblue;
   transform: scale(0.99);
 }
