@@ -40,8 +40,6 @@ const reducer = (state, action) => {
   // console.log("state =", state)
   console.log("dispatch =", action.type, action.btn || "", action.text || "");
   switch (action.type) {
-    case "PLAY_SOUND":
-      return { ...state, sound: action.sound };
     case "ADD_PLAYLIST":
       return {
         ...state,
@@ -74,6 +72,8 @@ const reducer = (state, action) => {
         ...state,
         [action.btn]: { ...state[action.btn], clicked: false }
       };
+    case "WIN":
+      return { ...state, start:false, playList: [buttons[Math.floor(Math.random() * 4)]], cursor: 0, displayer: "YOU WIN"}
 
     default:
       return state;
@@ -157,10 +157,14 @@ function App() {
   };
 
   const checkList = btn => {
-    if (state.cursor > state.playList.length) return;
     if (state.playList[state.cursor] === btn) {
       console.log("user click --------");
       playBtn(btn);
+      if(state.cursor === 1){
+        dispatch({ type: "WIN" })
+       
+      return
+      }
       dispatch({ type: "INC_CURSOR" });
       if (state.cursor === state.playList.length - 1) {
         const newBtn = buttons[Math.floor(Math.random() * 4)];
