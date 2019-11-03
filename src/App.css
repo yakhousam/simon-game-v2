@@ -86,10 +86,7 @@
   background-color: skyblue;
   transform: scale(0.99);
 }
-.wrong{
-  background: red;
-  box-shadow: none;
-}
+
 
 
 .control {
@@ -152,4 +149,12 @@
 .btn:active{
   background-color: green;
   transform: scale(0.9)
+}
+
+
+.wrong{
+  background: red;
+}
+.win{
+  background-color: green;
 }

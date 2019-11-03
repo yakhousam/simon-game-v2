@@ -38,7 +38,9 @@ const initialState = {
   isPlaying: false,
   displayer: "PUSH START",
   cursor: 0,
-  scoreWin: 5
+  scoreWin: 10,
+  wrong: false,
+  win: false
 };
 
 const reducer = (state, action) => {
@@ -55,7 +57,7 @@ const reducer = (state, action) => {
     case "IS_NOT_PLAYING":
       return { ...state, isPlaying: false };
     case "START":
-      return { ...state, start: !state.start };
+      return { ...state, start: !state.start, win: false, wrong: false };
     case "RESET":
       return {
         ...initialState,
@@ -75,12 +77,12 @@ const reducer = (state, action) => {
     case "BTN_STOP":
       return {
         ...state,
-        [action.btn]: { ...state[action.btn], clicked: false }
+        [action.btn]: { ...state[action.btn], clicked: false}
       };
     case "WIN":
-      return { ...state, start:false, playList: [buttons[Math.floor(Math.random() * 4)]], cursor: 0, displayer: "YOU WIN"}
+      return { ...state, win: true, start:false, playList: [buttons[Math.floor(Math.random() * 4)]], cursor: 0, displayer: "YOU WIN"}
     case "WRONG":
-      return {...state, btnWrong:{...state.btnWrong, btn: action.btn}}
+      return {...state, wrong: action.wrong, btnWrong:{...state.btnWrong, btn: action.btn}}
     default:
       return state;
   }
@@ -168,7 +170,7 @@ function App() {
       }
     } else {
       dispatch({ type: "SET_DISPLAYER", text: "WRONG" });
-      dispatch({type:"WRONG", btn})
+      dispatch({type:"WRONG", wrong:true, btn})
       playBtn("wrong");
       
       dispatch({ type: "RESET_CURSOR" });
@@ -180,10 +182,9 @@ function App() {
   // console.log("sound =", state.sound);
   const { btnGreen, btnRed, btnYellow, btnBlue, btnWrong } = state;
   return (
-    <div className="grid">
+    <div className={`grid ${state.win ? 'win': ''} ${state.wrong ? 'wrong': ''}`}>
       <div
         className={`green ${btnGreen.clicked ? btnGreen.classClicked : ""} ${btnWrong.btn === 'btnGreen' ? btnWrong.classClicked : ""}`}
-        // style={sounds[0] === state.sound ? { background: "lime" } : {}}
         onClick={() => {
           if (!state.start) return;
           if (state.isPlaying) return;
@@ -231,9 +232,9 @@ function App() {
         }}
       ></div>
 
-      <div className="control">
+      <div className={`control ${state.win ? 'win': ''} ${state.wrong ? 'wrong': ''}`}>
         <h1 className="title">Simon</h1>
-        <div className="monitor">
+        <div className={`monitor ${state.win ? 'win': ''} ${state.wrong ? 'wrong': ''}`}>
           <span>{state.displayer}</span>
         </div>
         <div className="btn-wrap">
@@ -262,8 +263,8 @@ function App() {
         </div>
       </div>
 
-      <div className="sp-vertical"></div>
-      <div className="sp-horizontal"></div>
+      <div className={`sp-vertical ${state.win ? 'win': ''} ${state.wrong ? 'wrong': ''}`}></div>
+      <div className={`sp-horizontal ${state.win ? 'win': ''} ${state.wrong ? 'wrong': ''}`}></div>
 
       <audio
         src={state.btnGreen.soundEffect}
@@ -325,6 +326,7 @@ function App() {
           });
           dispatch({
             type: "WRONG",
+            wrong: false,
             btn: ''
           });
         }}
