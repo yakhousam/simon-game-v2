@@ -86,6 +86,10 @@
   background-color: skyblue;
   transform: scale(0.99);
 }
+.wrong{
+  background: red;
+  box-shadow: none;
+}
 
 
 .control {

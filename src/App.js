@@ -1,9 +1,9 @@
-import React, { useReducer, useRef } from "react";
+import React, { useReducer, useState, useRef } from "react";
 import "./App.css";
 // import Control from "./components/Control/Control";
 import sounds from "./sounds";
 
-const buttons = ["btnGreen", "btnRed", "btnYellow", "btnBlue", "wrong"];
+const buttons = ["btnGreen", "btnRed", "btnYellow", "btnBlue"];
 
 const initialState = {
   btnGreen: {
@@ -26,14 +26,19 @@ const initialState = {
     classClicked: "blue-clicked",
     soundEffect: sounds[3]
   },
+  btnWrong:{
+    btn:'',
+    classClicked: "wrong",
+    soundEffect: sounds[4]
+  },
   playList: [buttons[Math.floor(Math.random() * 4)]],
   userPlayList: [],
   start: false,
   reset: false,
   isPlaying: false,
-  displayer: "-:-",
+  displayer: "PUSH START",
   cursor: 0,
-  simonIsBusy: false
+  scoreWin: 5
 };
 
 const reducer = (state, action) => {
@@ -48,7 +53,7 @@ const reducer = (state, action) => {
     case "IS_PLAYING":
       return { ...state, isPlaying: true };
     case "IS_NOT_PLAYING":
-      return { ...state, isPlaying: false, displayer: "-:-" };
+      return { ...state, isPlaying: false };
     case "START":
       return { ...state, start: !state.start };
     case "RESET":
@@ -74,7 +79,8 @@ const reducer = (state, action) => {
       };
     case "WIN":
       return { ...state, start:false, playList: [buttons[Math.floor(Math.random() * 4)]], cursor: 0, displayer: "YOU WIN"}
-
+    case "WRONG":
+      return {...state, btnWrong:{...state.btnWrong, btn: action.btn}}
     default:
       return state;
   }
@@ -82,6 +88,7 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [timer, setTimer] = useState([]);
   const audioBtnGreen = useRef();
   const audioBtnRed = useRef();
   const audioBtnYellow = useRef();
@@ -110,57 +117,45 @@ function App() {
       audioWorng.current.play();
     }
 
-    // else{
-    //   dispatch({
-    //     type: "PLAY_SOUND",
-    //     sound
-    //   });
-    //   if (!state.isPlaying) {
-    //     dispatch({ type: "IS_PLAYING" });
-    //   }
-    //   if (state.sound === sound) {
-    //     audio.current.currentTime = 0;
-    //     audio.current.play();
-    //   }
-    // }
+    
   };
-  // const addUserPlayList = sound => {
-  //   dispatch({
-  //     type: "ADD_USER_PLAYLIST",
-  //     sound
-  //   });
-  // };
+ 
 
   const playPlayList = newBtn => {
     const list = newBtn ? [...state.playList, newBtn] : [...state.playList];
     console.log("play playlist----", list);
     dispatch({ type: "IS_PLAYING" });
     dispatch({ type: "RESET_CURSOR" });
-    setTimeout(() => {
+    const timeOut = setTimeout(() => {
     list.forEach((btn, i) => {
-      setTimeout(() => {
+      const timeOut = setTimeout(() => {
         dispatch({
           type: "BTN_PLAY",
           btn
         });
         dispatch({
           type: "SET_DISPLAYER",
-          text: list.length - i
+          text: i + 1
         });
         playBtn(btn);
       }, 1000 * (i + 1));
+      setTimer([...timer, timeOut])
     });
-    setTimeout(() => {
+    const timeOut = setTimeout(() => {
       dispatch({ type: "IS_NOT_PLAYING" });
+      dispatch({type: "SET_DISPLAYER", text: "YOUR TURN"})
     }, 1000 * (list.length + 2));
+    setTimer([...timer, timeOut])
     }, 1000);
+    setTimer([...timer, timeOut])
   };
 
   const checkList = btn => {
     if (state.playList[state.cursor] === btn) {
       console.log("user click --------");
+      dispatch({type: "SET_DISPLAYER", text: `${state.cursor + 1} : ${state.playList.length }`})
       playBtn(btn);
-      if(state.cursor === 1){
+      if(state.cursor + 1 === state.scoreWin){
         dispatch({ type: "WIN" })
        
       return
@@ -173,11 +168,9 @@ function App() {
       }
     } else {
       dispatch({ type: "SET_DISPLAYER", text: "WRONG" });
+      dispatch({type:"WRONG", btn})
       playBtn("wrong");
-      dispatch({
-        type: "BTN_STOP",
-        btn
-      });
+      
       dispatch({ type: "RESET_CURSOR" });
       playPlayList();
     }
@@ -185,11 +178,11 @@ function App() {
 
   // console.log("state playlist =", state.playList);
   // console.log("sound =", state.sound);
-  const { btnGreen, btnRed, btnYellow, btnBlue } = state;
+  const { btnGreen, btnRed, btnYellow, btnBlue, btnWrong } = state;
   return (
     <div className="grid">
       <div
-        className={`green ${btnGreen.clicked ? btnGreen.classClicked : ""}`}
+        className={`green ${btnGreen.clicked ? btnGreen.classClicked : ""} ${btnWrong.btn === 'btnGreen' ? btnWrong.classClicked : ""}`}
         // style={sounds[0] === state.sound ? { background: "lime" } : {}}
         onClick={() => {
           if (!state.start) return;
@@ -202,7 +195,7 @@ function App() {
         }}
       ></div>
       <div
-        className={`red ${btnRed.clicked ? btnRed.classClicked : ""}`}
+        className={`red ${btnRed.clicked ? btnRed.classClicked : ""} ${btnWrong.btn === 'btnRed' ? btnWrong.classClicked : ""}`}
         onClick={() => {
           if (!state.start) return;
           if (state.isPlaying) return;
@@ -214,7 +207,7 @@ function App() {
         }}
       ></div>
       <div
-        className={`yellow ${btnYellow.clicked ? btnYellow.classClicked : ""}`}
+        className={`yellow ${btnYellow.clicked ? btnYellow.classClicked : ""} ${btnWrong.btn === 'btnYellow' ? btnWrong.classClicked : ""}`}
         onClick={() => {
           if (!state.start) return;
           if (state.isPlaying) return;
@@ -226,7 +219,7 @@ function App() {
         }}
       ></div>
       <div
-        className={`blue ${btnBlue.clicked ? btnBlue.classClicked : ""}`}
+        className={`blue ${btnBlue.clicked ? btnBlue.classClicked : ""} ${btnWrong.btn === 'btnBlue' ? btnWrong.classClicked : ""}`}
         onClick={() => {
           if (!state.start) return;
           if (state.isPlaying) return;
@@ -253,9 +246,12 @@ function App() {
                   type: "START"
                 });
                 playPlayList();
-                const sound = Math.floor(Math.random() * 4);
+               
               } else {
                 dispatch({ type: "RESET" });
+                timer.forEach(t =>{
+                  clearTimeout(t)
+                })
               }
             }}
           >
@@ -318,14 +314,18 @@ function App() {
         }}
       ></audio>
       <audio
-        src={sounds[4]}
+        src={state.btnWrong.soundEffect}
         ref={audioWorng}
         onEnded={() => {
           // console.log('audio ended')
 
           dispatch({
             type: "BTN_STOP",
-            btn: "wrong"
+            btn: state.btnWrong.btn
+          });
+          dispatch({
+            type: "WRONG",
+            btn: ''
           });
         }}
       ></audio>
