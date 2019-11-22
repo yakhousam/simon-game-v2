@@ -2,6 +2,8 @@ import React, { useReducer, useState, useRef } from "react";
 import "./App.css";
 // import Control from "./components/Control/Control";
 import sounds from "./sounds";
+import imgStart from './start.png'
+import imgStop from './stop.png'
 
 const buttons = ["btnGreen", "btnRed", "btnYellow", "btnBlue"];
 
@@ -240,7 +242,7 @@ function App() {
         <div className="btn-wrap">
           <div
             className="btn"
-            style={!state.start ? { background: "red" } : {}}
+            style={{ backgroundImage: !state.start ?  `url(${imgStart})` : `url(${imgStop})`} }
             onClick={() => {
               if (!state.start) {
                 dispatch({
@@ -256,10 +258,9 @@ function App() {
               }
             }}
           >
-            P
           </div>
-          <div className="btn">S</div>
-          <div className="btn"></div>
+          {/* <div className="btn">S</div>
+          <div className="btn"></div> */}
         </div>
       </div>
 

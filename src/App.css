@@ -103,7 +103,7 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  padding:  10% 5% 20%
+  padding:  10% 5% 10%
 }
 .title{
   margin: 0;
@@ -131,14 +131,19 @@
 .btn-wrap{
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+ 
+
 }
 .btn{
   width: 5vmin;
   height: 5vmin;
   border-radius: 50%;
-  background-color: green;
-  box-shadow: inset 0 0 1vmin yellow;
+  background-position: center;
+  background-size: 100%;
+  background-color: #f44336;
+  /* box-shadow:  0 0 1vmin yellow;
+ */
   /* border: orange 1vmin outset; */
   box-sizing: border-box;
   font-size: 2.5vmin;
@@ -146,10 +151,8 @@
   cursor: pointer;
 }
 
-.btn:active{
-  background-color: green;
-  transform: scale(0.9)
-}
+
+
 
 
 .wrong{
