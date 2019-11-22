@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/simon-game-v2/static/css/main.04f89044.chunk.css",
+    "main.js": "/simon-game-v2/static/js/main.4da5ecff.chunk.js",
+    "main.js.map": "/simon-game-v2/static/js/main.4da5ecff.chunk.js.map",
+    "runtime-main.js": "/simon-game-v2/static/js/runtime-main.550de018.js",
+    "runtime-main.js.map": "/simon-game-v2/static/js/runtime-main.550de018.js.map",
+    "static/js/2.46c77aac.chunk.js": "/simon-game-v2/static/js/2.46c77aac.chunk.js",
+    "static/js/2.46c77aac.chunk.js.map": "/simon-game-v2/static/js/2.46c77aac.chunk.js.map",
+    "index.html": "/simon-game-v2/index.html",
+    "precache-manifest.63e5c739e94d87ed07e06f254c5073d5.js": "/simon-game-v2/precache-manifest.63e5c739e94d87ed07e06f254c5073d5.js",
+    "service-worker.js": "/simon-game-v2/service-worker.js",
+    "static/css/main.04f89044.chunk.css.map": "/simon-game-v2/static/css/main.04f89044.chunk.css.map",
+    "static/media/simonSound1.mp3": "/simon-game-v2/static/media/simonSound1.319c7710.mp3",
+    "static/media/simonSound2.mp3": "/simon-game-v2/static/media/simonSound2.c3c86e71.mp3",
+    "static/media/simonSound3.mp3": "/simon-game-v2/static/media/simonSound3.f3c18b98.mp3",
+    "static/media/simonSound4.mp3": "/simon-game-v2/static/media/simonSound4.f4a912ee.mp3",
+    "static/media/wrong-answer-sound-effect.mp3": "/simon-game-v2/static/media/wrong-answer-sound-effect.093eed4f.mp3"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.550de018.js",
+    "static/js/2.46c77aac.chunk.js",
+    "static/css/main.04f89044.chunk.css",
+    "static/js/main.4da5ecff.chunk.js"
+  ]
+}
