@@ -183,6 +183,7 @@ function App() {
   // console.log("state playlist =", state.playList);
   // console.log("sound =", state.sound);
   const { btnGreen, btnRed, btnYellow, btnBlue, btnWrong } = state;
+  window.console.log = ()=>{}
   return (
     <div className={`grid ${state.win ? 'win': ''} ${state.wrong ? 'wrong': ''}`}>
       <div
