@@ -1,7 +1,8 @@
 # Description
 
- Simon game build with react hooks (learned  how to use useReducer() hook)
- 
+ - Simon game build with react hooks (learned  how to use useReducer() hook)
+ - I used CSS **Grid** with **vmin** unit that makes the component perfectly responsive
+
 ---
 
 ## Deployement  
