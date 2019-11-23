@@ -1,5 +1,7 @@
 # Description
+
  Simon game build with react hooks (learned  how to use useReducer() hook)
+ 
 ---
 
 ## Deployement  

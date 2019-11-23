@@ -2,8 +2,6 @@ import React, { useReducer, useState, useRef } from "react";
 import "./App.css";
 // import Control from "./components/Control/Control";
 import sounds from "./sounds";
-import imgStart from './start.png'
-import imgStop from './stop.png'
 
 const buttons = ["btnGreen", "btnRed", "btnYellow", "btnBlue"];
 
@@ -38,7 +36,7 @@ const initialState = {
   start: false,
   reset: false,
   isPlaying: false,
-  displayer: "PUSH START",
+  displayer: "Push red button",
   cursor: 0,
   scoreWin: 10,
   wrong: false,
@@ -243,7 +241,7 @@ function App() {
         <div className="btn-wrap">
           <div
             className="btn"
-            style={{ backgroundImage: !state.start ?  `url(${imgStart})` : `url(${imgStop})`} }
+            style={{ backgroundColor: !state.start ?  'red' : 'green'} }
             onClick={() => {
               if (!state.start) {
                 dispatch({
