@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0be9e9f27ebcccdd35ffced18bed3ea5",
+    "revision": "272bf153c117c5ac5493b5bd3903af2f",
     "url": "/simon-game-v2/index.html"
   },
   {
-    "revision": "477ed1062aa6f20e9449",
-    "url": "/simon-game-v2/static/css/main.04f89044.chunk.css"
+    "revision": "3f6ad230300130db4c4f",
+    "url": "/simon-game-v2/static/css/main.b72440cb.chunk.css"
   },
   {
-    "revision": "191b73d373d32ba507dd",
-    "url": "/simon-game-v2/static/js/2.46c77aac.chunk.js"
+    "revision": "79bdabda644de82e4215",
+    "url": "/simon-game-v2/static/js/2.63708fa7.chunk.js"
   },
   {
-    "revision": "477ed1062aa6f20e9449",
-    "url": "/simon-game-v2/static/js/main.4da5ecff.chunk.js"
+    "revision": "3f6ad230300130db4c4f",
+    "url": "/simon-game-v2/static/js/main.d2995517.chunk.js"
   },
   {
     "revision": "d821e419fa3af776f0a2",
